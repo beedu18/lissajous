@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Lissajous Curves</title>
-	<script type="text/javascript" src="p5.js"></script>
-	<script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="p5.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 	<style type="text/css">
 		canvas {
 			margin: 0;
@@ -11,7 +11,7 @@
         body {
             /*padding: 0;*/
         }
-        #text {
+        #txt {
             position: absolute;
             border: 2px solid black;
             width: auto;
@@ -24,8 +24,9 @@
 	<meta charset="utf-8">
 </head>
 <body>
-    <div id='text'>
-        Refresh the page to generate new Curves.
+    <div id='txt'>
+        Refresh the page to generate new curves.<br><br>
+        Frame rate: <span id='fr'></span>
     </div>
 </body>
 </html>
