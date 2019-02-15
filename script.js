@@ -2,7 +2,7 @@ var horizontal = [];
 var vertical = [];
 var shapes = [];
 var center_dist = 70;   // c_d / d_r > 2 (maintain this ratio for well defined shapes)
-var def_radius = 30;
+var def_radius = 25;
 
 function setup() {
 	createCanvas(550,550);	
