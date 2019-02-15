@@ -1,16 +1,18 @@
 var horizontal = [];
 var vertical = [];
 var shapes = [];
+var center_dist = 70;   // c_d / d_r > 2 (maintain this ratio for well defined shapes)
+var def_radius = 30;
 
 function setup() {
 	createCanvas(550,550);	
     ellipseMode(RADIUS);
     angleMode(DEGREES);
-    for(i = 150; i<width; i+=80) {
+    for(i = 150; i < width - def_radius; i+=center_dist) {
 	   horizontal.push(new node(i, 60, Math.floor(random(0,360))));    //horizontal generators
     }
 
-    for(i = 150; i<height; i+=80) {
+    for(i = 150; i < height - def_radius; i+=center_dist) {
         vertical.push(new node(60, i, Math.floor(random(0,360))));    //vertical generators
     }
    
@@ -36,6 +38,7 @@ function draw() {
     }
     Shapes();
     trace(shapes);
+    document.getElementById('fr').innerHTML = Math.floor(frameRate());
 }
 
 function Shapes() {
@@ -48,23 +51,28 @@ function Shapes() {
 function trace (shapes) {
     strokeWeight(1);
     stroke(255);
-    noFill();
+    var head;
     for(var i=0; i<vertical.length; i++) {
         for(var j=0; j<horizontal.length; j++) {
+            noFill();
             beginShape();
-            for (var pt of shapes[i][j].path)
+            for (var pt of shapes[i][j].path) {
                 vertex(pt.x, pt.y);
+                head = createVector(pt.x, pt.y);
+            }
             endShape();
+            fill(255);
+            ellipse(head.x, head.y, 2);
         }
     } 
 }
 
 class node {
-	constructor(x,y,phase, size = 30) {
+	constructor(x,y,phase, size = def_radius) {
 		this.xo = x;
 		this.yo = y;
 		this.phase = phase;
-		this.speed = Math.floor(random(5,10));
+		this.speed = random(5,10);
         this.probability = random(0,1);
         this.rad = size;
 		this.x;
@@ -103,8 +111,9 @@ class history_ {
         this.path = [];
     }
     add(x,y) {
-        this.path.unshift(createVector(x,y));
+        this.path.push(createVector(x,y));
         if(this.path.length > 250)
-            this.path.pop();
+            // this.path.splice(0,this.path.length-1);
+            this.path.splice(0,1);
     }
 }
